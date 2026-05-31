@@ -11,10 +11,12 @@ public class GrapheListe implements Graphe {
         graphe.putIfAbsent(id, new Arcs());
     }
 
+    @Override
     public List<String> getNoeuds() {
         return new ArrayList<>(graphe.keySet());
     }
 
+    @Override
     public Arcs getAdjacents(String noeud) {
         return graphe.getOrDefault(noeud, new Arcs());
     }
@@ -24,17 +26,14 @@ public class GrapheListe implements Graphe {
         ajouterNoeud(destination);
         graphe.get(source).ajouterArc(new Arc(destination, poids));
     }
-	public String toString() {
-    StringBuilder sb = new StringBuilder();
-    for (Map.Entry<String, Arcs> entry : graphe.entrySet()) {
-        sb.append(entry.getKey()).append(" -> ");
-        for (Arc arc : entry.getValue().getArcs()) {
-            sb.append(arc.getCible())
-              .append("(").append((int)arc.getPoids()).append(") ");
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, Arcs> entry : graphe.entrySet()) {
+            sb.append(entry.getKey()).append(" -> ")
+              .append(entry.getValue().toString()).append("\n");
         }
-        sb.append("\n");
+        return sb.toString();
     }
-    return sb.toString();
-}
-    
 }
